@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '2.0.4'
+}
+
+sourceCompatibility = 1.8
+mainClassName = 'io.vertx.core.Launcher'
+def mainVerticleName = 'cn.geekcity.xiot.xcp.vertx.impl.ws.client.example.Client'
+
+dependencies {
+    compile project(":xcp-vertx")
+    compile "io.vertx:vertx-core:${VertxVersion}"
+    compile "org.slf4j:slf4j-api:${Slf4jVersion}"
+    compile "ch.qos.logback:logback-classic:${LogbackVersion}"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.vertx.core.Launcher'
+        attributes 'Main-Verticle': mainVerticleName
+    }
+}
+
+shadowJar {
+    classifier = 'fat'
+    manifest {
+        attributes 'Main-Verticle': mainVerticleName
+    }
+    mergeServiceFiles {
+        include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+    }
+}

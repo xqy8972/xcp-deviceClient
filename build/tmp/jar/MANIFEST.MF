@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Verticle: cn.geekcity.xiot.xcp.vertx.impl.ws.client.example.Clien
+ t
+Main-Class: io.vertx.core.Launcher
+
